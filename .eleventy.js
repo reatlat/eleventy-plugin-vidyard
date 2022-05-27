@@ -3,7 +3,7 @@ const isUrl = require('is-url');
 module.exports = (eleventyConfig, options = {}) => {
 
     const defaultOptions = {
-        mainScript: true,
+        script: true,
         class: 'vidyard-player-embed',
         version: 4,
         type: 'inline'
@@ -26,18 +26,22 @@ module.exports = (eleventyConfig, options = {}) => {
 
         options = { ...globalOptions, ...options };
 
-        const UUID = videoURL.split('vidyard.com/watch/')[1].split('?')[0];
+        /**
+         * Vidyard Player API
+         * @link https://knowledge.vidyard.com/hc/en-us/articles/360019034753-Using-the-Vidyard-Player-API
+         */
+        const playerUUID = videoURL.split('vidyard.com/watch/')[1].split('?')[0];
 
         let $return = '';
 
-        if ( options.mainScript )
+        if ( options.script )
             $return += '<script src="https://play.vidyard.com/embed/v4.js" type="text/javascript" async></script>';
 
         $return += `
             <img style="max-width: 100%;"
                  class="${options.class}"
-                 src="https://play.vidyard.com/${UUID}.jpg"
-                 data-uuid="${UUID}"
+                 src="https://play.vidyard.com/${playerUUID}.jpg"
+                 data-uuid="${playerUUID}"
                  data-v="${options.version}"
                  data-type="${options.type}" />
         `;
