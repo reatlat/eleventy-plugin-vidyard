@@ -1,0 +1,36 @@
+{
+  "name": "eleventy-plugin-vidyard",
+  "version": "1.0.0",
+  "description": "This Eleventy plugin generate embeds responsive Vidyard videos from share URLs.",
+  "main": ".eleventy.js",
+  "scripts": {
+    "build": "cd demo/; npx eleventy",
+    "dev": "cd demo/; npx eleventy --serve",
+    "test": "cd demo/; npx eleventy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reatlat/eleventy-plugin-vidyard.git"
+  },
+  "keywords": [
+    "eleventy",
+    "eleventy-plugin",
+    "11ty",
+    "vidyard",
+    "video"
+  ],
+  "author": {
+    "name": "Alex Zappa",
+    "email": "alex@zappa.dev",
+    "url": "https://alex.zappa.dev/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reatlat/eleventy-plugin-vidyard/issues"
+  },
+  "homepage": "https://github.com/reatlat/eleventy-plugin-vidyard#readme",
+  "dependencies": {
+    "@11ty/eleventy": "^1.0.1",
+    "is-url": "^1.2.4"
+  }
+}
