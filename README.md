@@ -5,6 +5,8 @@
 
 An Eleventy [shortcode](https://www.11ty.dev/docs/shortcodes/), allows to be embedded [Vidyard](https://www.vidyard.com/) into templates by using Vidyard API v4.
 
+**[Demo](https://eleventy-plugin-vidyard.netlify.app/)**
+
 ## Installation
 Install the plugin from [npm](https://www.npmjs.com/package/eleventy-plugin-vidyard):
 
@@ -15,6 +17,16 @@ npm install eleventy-plugin-vidyard --save-dev
 
 Add it to your [Eleventy Config](https://www.11ty.dev/docs/config/) file:
 
+**ESM (Recommended for Eleventy 3.x):**
+```js
+import eleventyPluginVidyard from 'eleventy-plugin-vidyard';
+
+export default function (eleventyConfig) {
+    eleventyConfig.addPlugin(eleventyPluginVidyard);
+}
+```
+
+**CommonJS:**
 ```js
 const eleventyPluginVidyard = require('eleventy-plugin-vidyard');
 
@@ -26,6 +38,21 @@ module.exports = function (eleventyConfig) {
 
 Advanced usage:
 
+**ESM:**
+```js
+import eleventyPluginVidyard from 'eleventy-plugin-vidyard';
+
+export default function (eleventyConfig) {
+    eleventyConfig.addPlugin(eleventyPluginVidyard, {
+        script: true,
+        class: 'vidyard-player-embed',
+        version: 4,
+        type: 'inline'
+    });
+}
+```
+
+**CommonJS:**
 ```js
 const eleventyPluginVidyard = require('eleventy-plugin-vidyard');
 
@@ -77,6 +104,16 @@ In that case, we can disable rendering script within embedded player, and place 
 
 and set config file to:
 
+**ESM:**
+```js
+export default function (eleventyConfig) {
+    eleventyConfig.addPlugin(eleventyPluginVidyard, {
+        script: false
+    });
+}
+```
+
+**CommonJS:**
 ```js
 module.exports = function (eleventyConfig) {
     eleventyConfig.addPlugin(eleventyPluginVidyard, {
@@ -85,7 +122,7 @@ module.exports = function (eleventyConfig) {
 };
 ```
 
-or by passing options to shortcode directly
+or by passing options to shortcode directly (Nunjucks):
 
 ```nunjucks
 {% vidyard "https://share.vidyard.com/watch/Cse5Fqy1CpUWqYdtikKrFy?embeded=true", {
@@ -95,6 +132,20 @@ or by passing options to shortcode directly
     type: 'inline'
 } %}
 ```
+
+
+## Liquid Template Usage
+
+Liquid templates don't support passing objects to shortcodes. Instead, you can pass extra CSS classes as a string argument:
+
+```liquid
+{% vidyard "https://share.vidyard.com/watch/VIDEO_ID" %}
+
+{% comment %} With extra classes (appended to default class) {% endcomment %}
+{% vidyard "https://share.vidyard.com/watch/VIDEO_ID" "my-custom-class another-class" %}
+```
+
+For other options like `script: false`, configure them globally in your Eleventy config file.
 
 
 ## Contributing
@@ -109,7 +160,3 @@ If you notice an issue, feel free to [open an issue](https://github.com/reatlat/
 
 ## License
 The code is available under the [MIT license](LICENSE).
-
-
-## May the 4th be with you
-<img src="https://cdn.sunnypixels.io/imgs/yoda-close-up.jpg" alt="May 4th be with you" width="280">

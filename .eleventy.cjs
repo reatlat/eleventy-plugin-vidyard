@@ -1,6 +1,6 @@
-import isUrl from 'is-url';
+const isUrl = require('is-url');
 
-export default (eleventyConfig, options = {}) => {
+module.exports = (eleventyConfig, options = {}) => {
 
     const defaultOptions = {
         script: true,

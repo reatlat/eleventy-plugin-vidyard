@@ -1,0 +1,38 @@
+---
+permalink: /test-liquid/index.html
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Liquid Template Test - 11ty Plugin Vidyard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <style>
+        .prose { --tw-prose-body: #111 !important; }
+    </style>
+    <script src="https://play.vidyard.com/embed/v4.js" type="text/javascript" async></script>
+</head>
+<body class="py-14 px-8">
+<div class="prose mx-auto">
+    <h1>Liquid Template Test</h1>
+    <p><a href="/">← Back to main demo</a></p>
+
+    <h2>Basic Usage</h2>
+    <p>Basic embed (script disabled since it's in head):</p>
+    {% vidyard "https://share.vidyard.com/watch/Cse5Fqy1CpUWqYdtikKrFy" %}
+
+    <h2>With Extra Classes (String Argument)</h2>
+    <p>Liquid doesn't support passing objects, so pass extra classes as a string:</p>
+    <pre><code>{% raw %}{% vidyard "URL" "my-custom-class" %}{% endraw %}</code></pre>
+    <div class="not-prose">
+        {% vidyard "https://share.vidyard.com/watch/Cse5Fqy1CpUWqYdtikKrFy" "rounded-lg shadow-lg" %}
+    </div>
+
+    <hr>
+    <footer>
+        <p>Built using {{ eleventy.generator }}.</p>
+    </footer>
+</div>
+</body>
+</html>

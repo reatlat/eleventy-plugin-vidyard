@@ -4,44 +4,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>11ty Plugin Vidyard - Demo</title>
-    <link rel="stylesheet"
-          href="https://unpkg.com/purecss@2.1.0/build/pure-min.css"
-          integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH"
-          crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>11ty Plugin Vidyard</title>
+    <meta name="description" content="An Eleventy shortcode to embed Vidyard videos into templates using Vidyard API v4.">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css" />
     <style>
-        body {
-            background: #fafafa;
+        .github-fork-ribbon:before { background-color: #333; }
+        .prose :where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))::before,
+        .prose :where(code):not(:where([class~="not-prose"],[class~="not-prose"] *))::after { content: none !important; }
+        .prose :where(code):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+            background-color: #f5f2f0;
+            padding: 0.05em 0.4em;
+            line-height: 1;
+            font-size: inherit !important;
+            border-radius: 0.2em;
+            border: 1px solid #e1e1e1;
+            display: inline !important;
+            font-family: 'Fira Code', 'Courier New', monospace;
         }
-        .page-wrapper {
-            background: #fff;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 30px;
-            box-shadow: 0 5px 20px rgba(0,0,0,.15);
+        .prose {
+            --tw-prose-body: #111 !important;
         }
     </style>
+    <!-- The script tag should live in the head of your page if at all possible -->
+    <script src="https://play.vidyard.com/embed/v4.js" type="text/javascript" async></script>
 </head>
-<body>
-    <div class="page page-wrapper">
+<body class="py-14 px-8">
+<div class="prose mx-auto">
+    <h1 class="!mb-0">11ty Plugin: Vidyard</h1>
+    <p class="mt-4 flex flex-wrap gap-2">
+        <a href="https://npmjs.com/package/eleventy-plugin-vidyard">
+            <span class="sr-only">npm</span>
+            <img class="inline-block !my-0" src="https://img.shields.io/npm/v/eleventy-plugin-vidyard.svg" alt="npm">
+        </a>
+        <a href="https://npmjs.com/package/eleventy-plugin-vidyard">
+            <span class="sr-only">npm</span>
+            <img class="inline-block !my-0" src="https://img.shields.io/npm/dt/eleventy-plugin-vidyard.svg" alt="npm">
+        </a>
+        <a href="https://npmjs.com/package/eleventy-plugin-vidyard">
+            <span class="sr-only">license</span>
+            <img class="inline-block !my-0" src="https://img.shields.io/npm/l/eleventy-plugin-vidyard.svg" alt="license">
+        </a>
+    </p>
+    <p><a href="https://www.npmjs.com/package/eleventy-plugin-vidyard">This plugin</a> adds a shortcode to your Eleventy project to easily embed <a href="https://www.vidyard.com">Vidyard</a> videos using the Vidyard Player API v4.</p>
+    <h2>Installation</h2>
+    <p>Install the plugin from npm:</p>
+    <pre><code>npm install eleventy-plugin-vidyard --save-dev</code></pre>
+    <h2>Configuration</h2>
+    <ul>
+        <li><code>script</code> - Include the Vidyard embed script.<br/><small>Default: <code>true</code></small></li>
+        <li><code>class</code> - The class attribute for the player image.<br/><small>Default: <code>vidyard-player-embed</code></small></li>
+        <li><code>version</code> - The Vidyard API version.<br/><small>Default: <code>4</code></small></li>
+        <li><code>type</code> - The player type.<br/><small>Default: <code>inline</code></small></li>
+    </ul>
+    <h2>Usage</h2>
+    <p>Add it to your <a href="https://www.11ty.dev/docs/config/">Eleventy Config</a> config file:</p>
+    <h3>ESM (Eleventy 3.0+)</h3>
+    <pre><code>import eleventyPluginVidyard from 'eleventy-plugin-vidyard';
 
-        <div class="content-wrapper">
-            <div class="content">
-                <div class="pure-g">
-                    <div class="pure-u-1-1">
-                        <h1>Vidyard Demo Video</h1>
-                        <p>The Vidyard embed code helps embed Vidyard players into web pages and applications. It provides programmatic playback control, the ability to listen on playback events, GDPR consent control and integration with third party MAP platforms.</p>
-                    </div>
+export default function (eleventyConfig) {
+    eleventyConfig.addPlugin(eleventyPluginVidyard);
+};</code></pre>
+    <h3>CommonJS (Eleventy 2.x)</h3>
+    <pre><code>const eleventyPluginVidyard = require('eleventy-plugin-vidyard');
 
-                    <div class="pure-u-1-1">
+module.exports = function (eleventyConfig) {
+    eleventyConfig.addPlugin(eleventyPluginVidyard);
+};</code></pre>
+    <h3>Advanced usage:</h3>
+    <pre><code>import eleventyPluginVidyard from 'eleventy-plugin-vidyard';
 
-                        {% vidyard "https://share.vidyard.com/watch/Cse5Fqy1CpUWqYdtikKrFy?embeded=true" %}
+export default function (eleventyConfig) {
+    eleventyConfig.addPlugin(eleventyPluginVidyard, {
+        script: true,
+        class: 'vidyard-player-embed',
+        version: 4,
+        type: 'inline'
+    });
+};</code></pre>
+    <h3>Template usage (Nunjucks):</h3>
+    <pre><code>&#123;% vidyard "https://share.vidyard.com/watch/VIDEO_ID" %&#125;
 
-                    </div>
-                </div>
-            </div>
-        </div>
+{# With options #}
+&#123;% vidyard "https://share.vidyard.com/watch/VIDEO_ID", { script: false, class: "custom-class" } %&#125;</code></pre>
+    <h3>Template usage (Liquid):</h3>
+    <p><strong>Note:</strong> Liquid templates don't support passing objects. Pass extra classes as a string instead:</p>
+    <pre><code>&#123;% vidyard "https://share.vidyard.com/watch/VIDEO_ID" %&#125;
 
+{# With extra classes (appended to default class) #}
+&#123;% vidyard "https://share.vidyard.com/watch/VIDEO_ID" "my-custom-class" %&#125;</code></pre>
+    <p><a href="/test-liquid/">View Liquid template demo →</a></p>
+    <h2>Demo</h2>
+    <h3>Basic Embed</h3>
+    <div class="not-prose">
+        {% vidyard "https://share.vidyard.com/watch/Cse5Fqy1CpUWqYdtikKrFy?embeded=true", { script: false } %}
     </div>
+    <h3>Custom Options</h3>
+    <p>You can pass options directly to the shortcode:</p>
+    <pre><code>&#123;% vidyard "https://share.vidyard.com/watch/VIDEO_ID", {
+    script: false,
+    class: 'vidyard-player-embed my-custom-class'
+} %&#125;</code></pre>
+    <h2>Custom Usage</h2>
+    <p>Vidyard documentation recommends placing the script tag in the head of your page. In that case, disable script rendering in the shortcode:</p>
+    <pre><code>&lt;head&gt;
+    &lt;script src="https://play.vidyard.com/embed/v4.js" type="text/javascript" async&gt;&lt;/script&gt;
+&lt;/head&gt;</code></pre>
+    <p>And configure the plugin:</p>
+    <pre><code>eleventyConfig.addPlugin(eleventyPluginVidyard, {
+    script: false
+});</code></pre>
+    <h2>License</h2>
+    <p><a href="https://github.com/reatlat/eleventy-plugin-vidyard/blob/main/LICENSE">MIT License</a></p>
+    <hr>
+    <footer>
+        <p>Built using <a href="https://11ty.dev?utm_source=eleventy-plugin-vidyard">{{ eleventy.generator }}</a>.</p>
+        <p>Crafted by <a href="https://alex.zappa.dev?utm_source=eleventy-plugin-vidyard">Alex Zappa</a> at <a href="https://freshjuice.dev?utm_source=eleventy-plugin-vidyard">FreshJuice</a>.</p>
+    </footer>
+</div>
+<a class="github-fork-ribbon fixed" href="https://github.com/reatlat/eleventy-plugin-vidyard/" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
+
 </body>
 </html>
