@@ -1,6 +1,6 @@
 {
   "name": "eleventy-plugin-vidyard",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "This Eleventy plugin generate embeds responsive Vidyard videos from share URLs.",
   "type": "module",
   "main": ".eleventy.cjs",
@@ -44,6 +44,6 @@
     "@11ty/eleventy": ">=2.0.0"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.7"
+    "@11ty/eleventy": "^3.1.8"
   }
 }
